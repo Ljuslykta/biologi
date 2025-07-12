@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const answerContainer = document.getElementById('answer-container');
     const answerSv = document.getElementById('answer-sv');
     const answerLa = document.getElementById('answer-la');
-
+    const backToStartBtn = document.getElementById('back-to-start');
+    const restartQuizBtn = document.getElementById('restart-quiz');
     const showAnswerBtn = document.getElementById('show-answer');
     const nextQuestionBtn = document.getElementById('next-question');
     const restartQuizBtn = document.getElementById('restart-quiz');
@@ -81,5 +82,32 @@ document.addEventListener('DOMContentLoaded', () => {
     restartQuizBtn.addEventListener('click', () => {
         resultScreen.classList.add('hidden');
         startScreen.classList.remove('hidden');
-    });
+    }
+function goToHomeScreen() {
+        // Göm fråge- och resultatskärmarna
+        questionScreen.classList.add('hidden');
+        resultScreen.classList.add('hidden');
+
+        // Visa startskärmen
+        startScreen.classList.remove('hidden');
+
+        // Återställ quiz-variabler (mycket viktigt!)
+        currentQuiz = [];
+        currentQuestionIndex = 0;
+
+        // Stoppa eventuellt ljud
+        questionAudio.pause();
+        questionAudio.currentTime = 0;
+    }
+
+    // EVENT-LYSSNARE FÖR DEN NYA KNAPPEN
+    backToStartBtn.addEventListener('click', goToHomeScreen);
+
+    // UPPDATERAD EVENT-LYSSNARE FÖR "BÖRJA OM"-KNAPPEN SÅ ATT DEN OCKSÅ ANVÄNDER DEN NYA FUNKTIONEN
+    restartQuizBtn.addEventListener('click', goToHomeScreen);
+}
+
+
+
+    );
 });

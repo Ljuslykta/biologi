@@ -25,6 +25,15 @@ body {
     border-radius: 8px;
 }
 
+#back-to-start {
+    background-color: #6c757d; /* En neutral grå färg */
+    margin-top: 20px; /* Lite extra utrymme ovanför */
+}
+
+#back-to-start:hover {
+    background-color: #5a6268;
+}
+
 button {
     padding: 10px 15px;
     border: none;
