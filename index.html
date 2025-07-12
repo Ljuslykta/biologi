@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Växt- och djurquiz</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Växt- och djurquiz</h1>
+        <p>Välj ett ämne nedan för att starta ett quiz och testa dina kunskaper!</p>
+    </header>
+    <main id="quiz-container">
+        <div id="start-screen">
+            <h2>Välj quiz</h2>
+            <button class="quiz-choice" data-quiz="svenska-faglar">Svenska fåglar</button>
+            <button class="quiz-choice" data-quiz="svenska-daggdjur">Svenska däggdjur</button>
+            <button class="quiz-choice" data-quiz="vara-blommor">Våra vanligaste blommor</button>
+        </div>
+        <div id="question-screen" class="hidden">
+            <h2 id="question-title"></h2>
+            <img id="question-image" src="" alt="Bild på en växt eller ett djur">
+            <audio id="question-audio"></audio>
+            <div id="answer-container" class="hidden">
+                <p><strong>Svenska:</strong> <span id="answer-sv"></span></p>
+                <p><strong>Latin:</strong> <span id="answer-la"></span></p>
+            </div>
+            <button id="show-answer">Visa svar</button>
+            <button id="next-question" class="hidden">Nästa fråga</button>
+        </div>
+        <div id="result-screen" class="hidden">
+            <h2>Resultat</h2>
+            <p>Du har slutfört quizet!</p>
+            <button id="restart-quiz">Börja om</button>
+        </div>
+    </main>
+    <script src="js/quiz-data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
