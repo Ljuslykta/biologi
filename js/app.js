@@ -14,17 +14,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const showAnswerBtn = document.getElementById('show-answer');
     const nextQuestionBtn = document.getElementById('next-question');
     const restartQuizBtn = document.getElementById('restart-quiz');
-    const backToStartBtn = document.getElementById('back-to-start'); // Ny knapp
+    const backToStartBtn = document.getElementById('back-to-start');
 
     // Variabler för quiz-tillstånd
     let currentQuiz = [];
     let currentQuestionIndex = 0;
 
+    // NY FUNKTION: Fisher-Yates shuffle-algoritm för att blanda frågorna
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            // Slumpa fram ett index från 0 till i
+            const j = Math.floor(Math.random() * (i + 1));
+            // Byt plats på elementen
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
     // Lyssna efter klick på startskärmens knappar för att välja quiz
     document.querySelectorAll('.quiz-choice').forEach(button => {
         button.addEventListener('click', () => {
             const quizId = button.dataset.quiz;
-            currentQuiz = quizData[quizId];
+            // Hämta en kopia av datan för att inte ändra originalet
+            currentQuiz = [...quizData[quizId]];
+
+            // NY RAD: Blanda frågorna innan quizet startar
+            shuffleArray(currentQuiz);
+
             startQuiz();
         });
     });
