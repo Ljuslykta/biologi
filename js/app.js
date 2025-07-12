@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Hämta alla element från DOM
     const startScreen = document.getElementById('start-screen');
     const questionScreen = document.getElementById('question-screen');
     const resultScreen = document.getElementById('result-screen');
@@ -9,15 +10,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const answerContainer = document.getElementById('answer-container');
     const answerSv = document.getElementById('answer-sv');
     const answerLa = document.getElementById('answer-la');
-    const backToStartBtn = document.getElementById('back-to-start');
-    const restartQuizBtn = document.getElementById('restart-quiz');
+
     const showAnswerBtn = document.getElementById('show-answer');
     const nextQuestionBtn = document.getElementById('next-question');
     const restartQuizBtn = document.getElementById('restart-quiz');
+    const backToStartBtn = document.getElementById('back-to-start'); // Ny knapp
 
+    // Variabler för quiz-tillstånd
     let currentQuiz = [];
     let currentQuestionIndex = 0;
 
+    // Lyssna efter klick på startskärmens knappar för att välja quiz
     document.querySelectorAll('.quiz-choice').forEach(button => {
         button.addEventListener('click', () => {
             const quizId = button.dataset.quiz;
@@ -26,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Startar quizet och visar den första frågan
     function startQuiz() {
         startScreen.classList.add('hidden');
         questionScreen.classList.remove('hidden');
@@ -33,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showQuestion();
     }
 
+    // Visar aktuell fråga och bild/ljud
     function showQuestion() {
         resetQuestionState();
         const question = currentQuiz[currentQuestionIndex];
@@ -41,8 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (question.audio) {
             questionAudio.src = question.audio;
-            // Autoplay kan blockeras av webbläsare, så det är bättre att lägga till en uppspelningsknapp. [1, 3, 4]
-            // För detta exempel antar vi att användaren klickar på den inbyggda kontroller.
             questionAudio.style.display = 'block';
             questionAudio.controls = true;
         } else {
@@ -53,18 +56,21 @@ document.addEventListener('DOMContentLoaded', () => {
         answerLa.innerText = question.latinName;
     }
 
+    // Återställer frågevyn (döljer svar, etc.)
     function resetQuestionState() {
         answerContainer.classList.add('hidden');
         nextQuestionBtn.classList.add('hidden');
         showAnswerBtn.classList.remove('hidden');
     }
 
+    // Visar svaret när man klickar på "Visa svar"
     showAnswerBtn.addEventListener('click', () => {
         answerContainer.classList.remove('hidden');
         showAnswerBtn.classList.add('hidden');
         nextQuestionBtn.classList.remove('hidden');
     });
 
+    // Går till nästa fråga eller visar resultat
     nextQuestionBtn.addEventListener('click', () => {
         currentQuestionIndex++;
         if (currentQuestionIndex < currentQuiz.length) {
@@ -74,24 +80,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Visar resultatskärmen
     function showResults() {
         questionScreen.classList.add('hidden');
         resultScreen.classList.remove('hidden');
     }
 
-    restartQuizBtn.addEventListener('click', () => {
-        resultScreen.classList.add('hidden');
-        startScreen.classList.remove('hidden');
-    }
-function goToHomeScreen() {
-        // Göm fråge- och resultatskärmarna
+    // Funktion för att återgå till startskärmen och återställa allt
+    function goToHomeScreen() {
         questionScreen.classList.add('hidden');
         resultScreen.classList.add('hidden');
-
-        // Visa startskärmen
         startScreen.classList.remove('hidden');
 
-        // Återställ quiz-variabler (mycket viktigt!)
+        // Återställ quiz-variabler
         currentQuiz = [];
         currentQuestionIndex = 0;
 
@@ -100,14 +101,9 @@ function goToHomeScreen() {
         questionAudio.currentTime = 0;
     }
 
-    // EVENT-LYSSNARE FÖR DEN NYA KNAPPEN
+    // Lyssna efter klick på "Tillbaka till startsidan"
     backToStartBtn.addEventListener('click', goToHomeScreen);
 
-    // UPPDATERAD EVENT-LYSSNARE FÖR "BÖRJA OM"-KNAPPEN SÅ ATT DEN OCKSÅ ANVÄNDER DEN NYA FUNKTIONEN
+    // Lyssna efter klick på "Börja om" från resultatskärmen
     restartQuizBtn.addEventListener('click', goToHomeScreen);
-}
-
-
-
-    );
 });
