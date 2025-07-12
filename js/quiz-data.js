@@ -238,7 +238,8 @@ const quizData = {
             swedishName: "Bäcknejonöga",
             latinName: "Lampetra planeri"
         },
-                    image: "bilder/fiskar/gos.png",
+        {
+                    image: "bilder/fiskar/storfiskar.png",
             swedishName: "Störfiskar",
             latinName: "Acipenseridae"
         }
